@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style/home.css">
+  <link rel="stylesheet" href="/style/main.css">
+  <title>FinanceApp</title>
+</head>
+
+<body>
+  <header>
+    <div class="salutation">
+      <p>Bom dia, <%= username %>
+      </p>
+      <p>Bem-vindo (a) de volta :)</p>
+    </div>
+
+    <div class="title">
+      <p>FinanceApp</p>
+    </div>
+  </header>
+
+  <section class="monthSummary">
+    <p>Resumo do mês atual</p>
+
+    <div class="monthSummaryCards">
+      <div>
+        <p>Saldo</p>
+        <div class="monetaryInfo">
+          <p>R$ <%= balance %>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p>Entrada</p>
+        <div class="monetaryInfo">
+          <p>R$ <%= input %>
+          </p>
+        </div>
+      </div>
+
+      <div>
+        <p>Saída</p>
+        <div class="monetaryInfo">
+          <p>R$ <%= output %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="lastTransactions">
+      <div>
+        <p>Últimas transações</p>
+        <button onclick="location.href = '/add-transaction';">
+          <img src="/assets/add.svg" alt="Adicionar transação">
+        </button>
+      </div>
+
+      <% if(lastTransactions.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Valor</th>
+              <th>Data</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% for(let i=0; i < lastTransactions.length; i++){ %>
+              <tr>
+                <td>
+                  <%= lastTransactions[i].name %>
+                </td>
+                <td>
+                  <%= lastTransactions[i].category %>
+                </td>
+                <td>
+                  <%= lastTransactions[i].value %>
+                </td>
+                <td>
+                  <%= lastTransactions[i].date %>
+                </td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+        <%} else { %>
+          <div class="noTransactionsMessage">
+            <p>
+              Você ainda não adicionou nenhuma transação esse mês
+            </p>
+          </div>
+        <% } %>
+    </section>
+
+    <section class="expenditures">
+      <!-- <p>Seus gastos</p>
+      <div class="expendituresGraphic">
+      </div> -->
+
+      <p>O que você pode fazer hoje</p>
+      <a href="/history">Ver histórico de transações</a>
+      <a href="/add-transaction">Adicionar uma nova transação</a>
+      <a href="/add-category">Adicionar uma nova categoria</a>
+    </section>
+  </main>
+
+  <section class="otherActions">
+    <p>O que você pode fazer hoje</p>
+    <a href="/history">Ver histórico de transações</a>
+    <a href="/add-transaction">Adicionar uma transação</a>
+    <a href="/add-category">Adicionar uma categoria de gasto</a>
+  </section>
+
+</body>
+
+</html>

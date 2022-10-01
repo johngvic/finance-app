@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style/add-transaction.css">
+  <link rel="stylesheet" href="/style/main.css">
+  <title>FinanceApp - Adicionar categoria</title>
+</head>
+<body>
+  <header>
+    <a href="/">
+      <img src="/assets/back.svg" alt="Home">
+    </a>
+    <p>FinanceApp</p>
+  </header>
+
+  <main>
+    <p>Adicionar uma nova categoria</p>
+
+    <form method="post" action="/add-category/create">
+      <label>Categoria</label>
+      <input type="text" name="category" value="<%= category.category %>" >
+
+      <button>Enviar</button>
+    </form>
+  </main>
+
+  <% if(errors.length > 0) { %>
+    <section class="errorDiv">
+      <p>Resolva os erros abaixo para enviar</p>
+      <ul>
+        <% for(let i=0; i < errors.length; i++){ %>
+          <li>
+            <%= errors[i].msg %>
+          </li>
+        <% } %>
+      </ul>
+    </section>
+  <% } %>
+
+</body>
+</html>

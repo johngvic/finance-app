@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style/main.css">
+  <link rel="stylesheet" href="/style/history.css">
+  <title>FinanceApp - Histórico</title>
+</head>
+
+<body>
+  <header>
+    <a href="/">
+      <img src="/assets/back.svg" alt="Home">
+    </a>
+    <p>FinanceApp</p>
+  </header>
+
+  <h1>Histórico de transações</h1>
+
+  <main>
+    <% if(transactions.length > 0) { %>
+      <table>
+        <tr>
+          <th>Nome</th>
+          <th>Data</th>
+          <th>Tipo</th>
+          <th>Categoria</th>
+          <th>Valor</th>
+        </tr>
+
+        <% for(let i=0; i < transactions.length; i++){ %>
+          <tr>
+            <td>
+              <%= transactions[i].name %>
+            </td>
+            <td>
+              <%= transactions[i].date %>
+            </td>
+            <td>
+              <%= transactions[i].type %>
+            </td>
+            <td>
+              <%= transactions[i].category %>
+            </td>
+            <td>
+              <%= transactions[i].value %>
+            </td>
+          </tr>
+          <% } %>
+      </table>
+      <%} else { %>
+        <p class="noTransactionsMessage">
+          Você ainda não adicionou nenhuma transação
+        </p>
+      <% } %>
+  </main>
+</body>
+
+</html>

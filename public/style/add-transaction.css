@@ -68,6 +68,31 @@ button {
   cursor: pointer;
 }
 
+.errorDiv {
+  border: 1px solid rgb(206, 206, 206);
+  width: 25rem;
+  height: auto;
+  margin: 0 auto;
+  border-radius: .6rem;
+  margin-bottom: 1rem;
+}
+
+.errorDiv > p {
+  text-align: left;
+  font-weight: 500;
+  color: red;
+  margin: .5rem;
+}
+
+.errorDiv > ul {
+  line-height: 2rem;
+  padding-left: 1.5rem;
+}
+
+.errorDiv > ul > li:last-child {
+  margin-bottom: 1rem;
+}
+
 @media (max-width: 700px) {
   main > form {
     width: 20rem;
