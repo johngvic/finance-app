@@ -1,0 +1,75 @@
+header {
+  width: 100vw;
+  height: 6rem;
+  background-color: #01058A;
+  color: #ffffff;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+header > a {
+  position: absolute;
+  right: calc(85%);
+}
+
+header > p {
+  justify-content: center;
+  font-weight: 600;
+  font-size: 2rem;
+  text-align: center;
+}
+
+main > p {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #01058A;
+}
+
+main > form {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  margin: 0 auto;
+  /* border: 1px solid black; */
+  padding: 1rem;
+}
+
+main > form > label {
+  margin-bottom: .3rem;
+  font-weight: 600;
+  color: #000000;
+}
+
+main > form > input, select {
+  outline: none;
+  padding: .4rem;
+  border-radius: .3rem;
+  border: 1px solid black;
+}
+
+main > form > input, select:not(:last-child) {
+  margin-bottom: 1.5rem;
+}
+
+button {
+  padding: .5rem;
+  width: 8rem;
+  margin: 0 auto;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #01058A;
+  border: 1px solid white;
+  border-radius: .5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  main > form {
+    width: 20rem;
+  }
+}

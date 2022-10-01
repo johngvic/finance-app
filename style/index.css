@@ -1,0 +1,228 @@
+body {
+  justify-content: center;
+}
+
+header {
+  width: 100vw;
+  height: 6rem;
+  background-color: #01058A;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  color: #ffffff;
+}
+
+.salutation {
+  margin-left: 5rem;
+  height: 2.8rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.salutation p:first-child {
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.salutation p:last-child {
+  font-weight: 400;
+  font-size: .8rem;
+  margin-top: .1rem;
+}
+
+.title {
+  margin-right: 5rem;
+  height: 2.4rem;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  font-weight: 600;
+  font-size: 2rem;
+}
+
+.monthSummary {
+  width: 85vw;
+  height: 10rem;
+  margin: 2rem auto;
+}
+
+.monthSummary > p {
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #01058A;
+}
+
+.monthSummaryCards {
+  margin-top: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.monthSummaryCards > div {
+  border: 1px solid black;
+  height: 7rem;
+  width: 16rem;
+  border-radius: .6rem;
+  display: grid;
+}
+
+.monthSummaryCards > div > p:first-child {
+  font-weight: 400;
+  font-size: 1rem;
+  color: #33343D;
+  margin: 1rem 1rem 0;
+}
+
+.monetaryInfo {
+  display: flex;
+  margin-left: 1rem;
+  align-items: center;
+}
+
+.monetaryInfo > p:first-child {
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+  color: #01058A;
+}
+
+.monetaryInfo > p:last-child {
+  margin: .15rem 0 0 .5rem;
+  font-weight: 400;
+  font-size: 0.875rem;
+  color: #3DD598;
+  align-items: flex-end;
+}
+
+.monthSummaryCards > div > p:last-child {
+  font-weight: 300;
+  font-size: .75rem;
+  color: #807D9B;
+  margin: .5rem 1rem 0;
+}
+
+main {
+  height: 20rem;
+  width: 85vw;
+  justify-content: center;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+main > section {
+  height: 20rem;
+}
+
+.lastTransactions {
+  /* border: 1px solid black; */
+}
+
+.lastTransactions > div {
+  display: flex;
+  align-items: center;
+}
+
+.lastTransactions > div > p, .expenditures > p, .otherActions > p {
+  color: #01058A;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.lastTransactions > div > button {
+  cursor: pointer;
+  background-color: rgba(107, 110, 231, 0.14);;
+  border: none;
+  border-radius: .4rem;
+  height: 1.8rem;
+  width: 1.8rem;
+  padding: 0;
+  margin-left: 1.2rem;
+  border: 1px solid white;
+}
+
+.lastTransactions > table {
+  border: 1px solid #01058A;
+  border-radius: .6rem;
+  margin-top: 1.2rem;
+  height: 17rem;
+  width: 38rem;
+}
+
+.expenditures {
+  /* border: 1px solid black; */
+}
+
+.expenditures > p {
+  margin-top: .5rem;
+}
+
+.expendituresGraphic {
+  border: 1px solid #01058A;
+  border-radius: .6rem;
+  margin-top: 1.2rem;
+  width: 28rem;
+  height: 17rem;
+}
+
+.otherActions {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  line-height: 2rem;
+  width: 85vw;
+  height: 10rem;
+}
+
+.otherActions > a {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #000000;
+}
+
+/* Responsiveness */
+@media (max-width: 1100px) {
+  header {
+    display: block;
+  }
+
+  .title {
+    text-align: center;
+    margin: 0;
+  }
+
+  .salutation {
+    display: none;
+  }
+
+  .monthSummary {
+    height: 30rem;
+    justify-content: center;
+  }
+
+  .monthSummary > p:first-child {
+    text-align: center;
+  }
+
+  .monthSummaryCards {
+    display: grid;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .monthSummaryCards > div:not(:last-child){
+    margin-bottom: 2rem;
+  }
+
+  main {
+    display: none;
+  }
+
+  .otherActions {
+    margin: 2rem auto;
+    text-align: center;
+  }
+}

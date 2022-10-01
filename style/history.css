@@ -1,0 +1,51 @@
+header {
+  width: 100vw;
+  height: 6rem;
+  background-color: #01058A;
+  color: #ffffff;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+header > a {
+  position: absolute;
+  right: calc(85%);
+}
+
+header > p {
+  justify-content: center;
+  font-weight: 600;
+  font-size: 2rem;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: #01058A;
+  margin-top: 1.8rem;
+}
+
+main {
+  border: 1px solid #01058A;
+  border-radius: .6rem;
+  margin: 3rem auto;
+  width: 60vw;
+  height: 60vh;
+  max-height: 60vh;
+  overflow: scroll;
+}
+
+table {
+  width: 60vw;
+  max-height: 70vh;
+  border-spacing: .8rem;
+}
+
+table tr:first-child {
+  text-align: left;
+}

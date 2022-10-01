@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/index.css">
+  <link rel="stylesheet" href="../style/main.css">
+  <title>FinanceApp</title>
+</head>
+<body>
+  <header>
+    <div class="salutation">
+      <p>Bom dia, Fulano</p>
+      <p>Bem-vindo (a) de volta :)</p>
+    </div>
+
+    <div class="title">
+      <p>FinanceApp</p>
+    </div>
+  </header>
+
+  <section class="monthSummary">
+    <p>Resumo do mês</p>
+
+    <div class="monthSummaryCards">
+      <div>
+        <p>Saldo</p>
+        <div class="monetaryInfo">
+          <p>R$ 27.632,15</p>
+          <p>+ 2,5%</p>
+        </div>
+        <p>Comparado ao mês anterior</p>
+      </div>
+
+      <div>
+        <p>Entrada</p>
+        <div class="monetaryInfo">
+          <p>R$ 7.500,00</p>
+          <p>+ 2,5%</p>
+        </div>
+        <p>Comparado ao mês anterior</p>
+      </div>
+      
+      <div>
+        <p>Saída</p>
+        <div class="monetaryInfo">
+          <p>R$ 20.199,78</p>
+          <p>+ 1,5%</p>
+        </div>
+        <p>Comparado ao mês anterior</p>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section class="lastTransactions">
+      <div>
+        <p>Últimas transações</p>
+        <button onclick="location.href = './add-transaction.html';">
+          <img src="../assets/add.svg" alt="Adicionar transação">
+        </button>
+      </div>
+      <table></table>
+    </section>
+
+    <section class="expenditures">
+      <p>Seus gastos</p>
+      <div class="expendituresGraphic">
+      </div>
+    </section>
+  </main>
+
+  <section class="otherActions">
+    <p>O que você pode fazer hoje</p>
+    <a href="./history.html">Ver histórico de transações</a>
+    <a href="./add-transaction.html">Adicionar uma transação</a>
+    <a href="./add-category.html">Adicionar uma categoria de gasto</a>
+  </section>
+
+</body>
+</html>
