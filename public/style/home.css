@@ -62,17 +62,16 @@ header {
 
 .monthSummaryCards > div {
   border: 1px solid black;
-  height: 7rem;
+  height: 6rem;
   width: 16rem;
   border-radius: .6rem;
-  display: grid;
 }
 
 .monthSummaryCards > div > p:first-child {
   font-weight: 400;
   font-size: 1rem;
   color: #33343D;
-  margin: 1rem 1rem 0;
+  margin: 1rem 1rem 1rem;
 }
 
 .monetaryInfo {
@@ -81,26 +80,11 @@ header {
   align-items: center;
 }
 
-.monetaryInfo > p:first-child {
+.monetaryInfo > p {
   font-size: 1.3rem;
   font-weight: 600;
   font-size: 1.25rem;
   color: #01058A;
-}
-
-.monetaryInfo > p:last-child {
-  margin: .15rem 0 0 .5rem;
-  font-weight: 400;
-  font-size: 0.875rem;
-  color: #3DD598;
-  align-items: flex-end;
-}
-
-.monthSummaryCards > div > p:last-child {
-  font-weight: 300;
-  font-size: .75rem;
-  color: #807D9B;
-  margin: .5rem 1rem 0;
 }
 
 main {
@@ -144,24 +128,52 @@ main > section {
   border: 1px solid white;
 }
 
-.lastTransactions > table {
+table {
   border: 1px solid #01058A;
   border-radius: .6rem;
+  border-spacing: 1rem;
   margin-top: 1.2rem;
   height: 17rem;
   width: 38rem;
+  padding: .3rem;
+}
+
+table > thead, tbody {
+  text-align: left;
+}
+
+table > tbody > tr > th {
+  font-weight: 400;
+}
+
+.noTransactionsMessage {
+  border: 1px solid #01058A;
+  border-radius: .6rem;
+  height: 17rem;
+  width: 38rem;
+  margin-top: 1.2rem;
+  justify-content: center;
+  font-weight: 500;
 }
 
 .expenditures {
   /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  margin: 2rem auto;
+  line-height: 2rem;
+
+  margin-top: 1.2rem;
+  width: 28rem;
+  height: 17rem;
 }
 
 .expenditures > p {
-  margin-top: .5rem;
+  margin-top: .4rem;
 }
 
 .expendituresGraphic {
-  border: 1px solid #01058A;
+  /* border: 1px solid #01058A; */
   border-radius: .6rem;
   margin-top: 1.2rem;
   width: 28rem;
@@ -169,12 +181,7 @@ main > section {
 }
 
 .otherActions {
-  display: flex;
-  flex-direction: column;
-  margin: 2rem auto;
-  line-height: 2rem;
-  width: 85vw;
-  height: 10rem;
+  display: none;
 }
 
 .otherActions > a {
@@ -221,8 +228,19 @@ main > section {
     display: none;
   }
 
+  .expenditures {
+    display: none;
+  }
+
   .otherActions {
-    margin: 2rem auto;
+    /* margin: 2rem auto;*/
     text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    margin: 2rem auto;
+    line-height: 2rem;
+    width: 85vw;
+    height: 10rem;
   }
 }

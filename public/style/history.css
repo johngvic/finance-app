@@ -38,6 +38,8 @@ main {
   height: 60vh;
   max-height: 60vh;
   overflow: scroll;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 table {
@@ -48,4 +50,10 @@ table {
 
 table tr:first-child {
   text-align: left;
+}
+
+.noTransactionsMessage {
+  text-align: center;
+  margin-top: 2rem;
+  font-weight: 600;
 }
