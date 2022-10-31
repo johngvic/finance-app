@@ -5,14 +5,19 @@ const {
 const dbConnection = require('../../config/dbconnection')
 
 module.exports.addTransactionScreen = (app, req, res, transaction, errors) => {
-  const db = dbConnection()
+  if(req.session.user) {
+    const db = dbConnection()
+    const userId = req.session.user.id;
 
-  renderAddTransactionScreen(db, (err, categories) => {
-    const categoriesArray = []
-    categories.forEach(category => categoriesArray.push({ ...category }));
-    
-    res.render('add-transaction', { transaction, categories: categoriesArray, errors })
-  })
+    renderAddTransactionScreen(db, userId, (err, categories) => {
+      const categoriesArray = []
+      categories.forEach(category => categoriesArray.push({ ...category }));
+      
+      res.render('add-transaction', { transaction, categories: categoriesArray, errors })
+    })
+  } else {
+    res.redirect('/')
+  }
 }
 
 module.exports.addTransactionPost = (app, req, res) => {
@@ -22,12 +27,12 @@ module.exports.addTransactionPost = (app, req, res) => {
     type: req.body.type,
     value: format(req.body.value),
     category: req.body.category,
-    user: 1
+    user: req.session.user.id
   };
   const db = dbConnection();
 
   addTransaction(transaction, db, (err) => {
-    if(!err) res.redirect('/')
+    if(!err) res.redirect('/home')
     else console.log(err)
   });
 }

@@ -1,6 +1,6 @@
 module.exports = {
-  renderAddTransactionScreen: (dbConnection, callback) => {
-    const command = `SELECT * FROM tb_category WHERE user = 1`
+  renderAddTransactionScreen: (dbConnection, userId, callback) => {
+    const command = `SELECT * FROM tb_category WHERE user = ${userId}`
     dbConnection.query(command, callback);
   },
 
