@@ -12,11 +12,19 @@
 
 <body>
   <header>
-    <div class="salutation">
-      <p>Bom dia, <%= username %>
-      </p>
-      <p>Bem-vindo (a) de volta :)</p>
+    <div class="leftMenu">
+      <button class="logoutButton" title="Logout">
+        <a href="/logout">
+          <img src="/assets/power.svg" alt="Logout">
+        </a>
+      </button>
+      <div class="salutation">
+        <p><%= salutation %>
+        </p>
+        <p>Bem-vindo (a) de volta :)</p>
+      </div>
     </div>
+    
 
     <div class="title">
       <p>FinanceApp</p>
@@ -57,7 +65,7 @@
     <section class="lastTransactions">
       <div>
         <p>Últimas transações</p>
-        <button onclick="location.href = '/add-transaction';">
+        <button onclick="location.href = '/add-transaction';" title="Adicionar transação">
           <img src="/assets/add.svg" alt="Adicionar transação">
         </button>
       </div>

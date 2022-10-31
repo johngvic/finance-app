@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style/user.css">
+  <link rel="stylesheet" href="/style/main.css">
+  <title>FinanceApp</title>
+</head>
+
+<body>
+  <header>
+    <h1>FinanceApp</h1>
+  </header>
+
+  <main>
+    <form class="login" method="post" action="/auth">
+      <h2>Log in</h2>
+      
+      <label>Email</label>
+      <input type="text" name="email" value="<%= authUser.email %>">
+
+      <label>Senha</label>
+      <input type="password" name="password" value="<%= authUser.password %>">
+      
+      <% if(authErrors.length> 0) { %>
+        <section class="errorDiv">
+          <% for(let i=0; i < authErrors.length; i++){ %>
+            <p><%= authErrors[i].msg %></p>
+          <% } %>
+        </section>
+      <% } %>
+
+      <button>Entrar</button>
+    </form>
+
+    <form class="register" method="post" action="/newUser">
+      <h2>Cadastro</h2>
+
+      <label>Nome</label>
+      <input type="text" name="name" value="<%= addUser.name %>">
+
+      <label>Email</label>
+      <input type="text" name="email" value="<%= addUser.email %>">
+
+      <label>Senha</label>
+      <input type="password" name="password" value="<%= addUser.password %>">
+
+      <label>Confirme sua senha</label>
+      <input type="password" name="confirmPassword" value="<%= addUser.confirmPassword %>">
+      
+      <% if(addErrors.length> 0) { %>
+        <section class="errorDiv">
+          <% for(let i=0; i < addErrors.length; i++){ %>
+            <p><%= addErrors[i].msg %></p>
+          <% } %>
+        </section>
+      <% } %>
+
+      <button>Cadastrar</button>
+    </form>
+  </main>
+</body>
+
+</html>

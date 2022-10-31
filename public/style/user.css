@@ -1,0 +1,93 @@
+body {
+  background-color: #eff7fa;
+}
+
+header {
+  text-align: center;
+  color: #01058A;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+main {
+  width: 65vw;
+  height: 60vh;
+  padding: 1rem;
+  margin: 5rem auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  border-radius: 1rem;
+  width: 25rem;
+  background-color: white;
+}
+
+form:first-child {
+  height: 20rem;
+}
+
+form:last-child {
+  height: 30rem;
+}
+
+form > h2 {
+  text-align: center;
+  margin-top: .6rem;
+  margin-bottom: 1rem;
+}
+
+form > label {
+  margin-bottom: .3rem;
+  font-weight: 600;
+  color: #000000;
+  margin-left: 1rem;
+}
+
+form > input {
+  outline: none;
+  padding: .4rem;
+  border-radius: .3rem;
+  border: 1px solid black;
+  margin: 0 1rem 0 1rem;
+}
+
+.login > input:not(:nth-child(5)) {
+  margin-bottom: 1.5rem;
+}
+
+.register > input:not(:nth-child(9)) {
+  margin-bottom: 1.5rem;
+}
+
+.errorDiv {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  font-size: .9rem;
+  color: red;
+}
+
+button {
+  width: 8rem;
+  padding: .6rem .4rem;
+  margin: 1.5rem auto;
+  border-radius: .5rem;
+  border: 1px solid white;
+  color: #ffffff;
+  background-color: #01058A;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  main {
+    flex-direction: column;
+    width: 50vh;
+    height: 110vh;
+    margin: 2rem auto;
+  }
+}

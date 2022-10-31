@@ -5,22 +5,26 @@ const {
 const dbConnection = require('../../config/dbconnection')
 
 module.exports.addCategoryScreen = (app, req, res, category, errors) => {
-  const db = dbConnection()
+  if (req.session.user) {
+    const db = dbConnection()
 
-  renderAddCategoryScreen(db, (err) => {
-    res.render('add-category', { category, errors })
-  })
+    renderAddCategoryScreen(db, (err) => {
+      res.render('add-category', { category, errors })
+    })
+  } else {
+    res.redirect('/')
+  }
 }
 
 module.exports.addCategoryPost = (app, req, res) => {
   const category = {
     name: req.body.category,
-    user: 1
+    user: req.session.user.id
   };
   const db = dbConnection();
 
   addCategory(category, db, (err, result) => {
-    if(!err) res.redirect('/')
+    if(!err) res.redirect('/home')
     else console.log(err)
   });
 }
