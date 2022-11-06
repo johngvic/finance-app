@@ -57,3 +57,11 @@ table tr:first-child {
   margin-top: 2rem;
   font-weight: 600;
 }
+
+button {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  margin-left: .5rem;
+  padding: 0;
+}
