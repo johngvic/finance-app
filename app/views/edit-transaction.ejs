@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/style/add-transaction.css">
+  <link rel="stylesheet" href="/style/main.css">
+  <title>FinanceApp - Editar transação</title>
+</head>
+
+<body>
+  <header>
+    <a href="/home">
+      <img src="/assets/back.svg" alt="Home">
+    </a>
+    <p>FinanceApp</p>
+  </header>
+
+  <main>
+    <p>Editar transação</p>
+
+    <form method="post" action="/edit-transaction/edit?transactionId=<%= transaction.transactionId %>">
+      <label>Nome</label>
+      <input name="name" type="text" value="<%= transaction.name %>">
+
+      <label>Tipo</label>
+      <select name="type">
+        <option value="" <%=transaction.type=='' ? 'selected' : '' %>>Escolha uma opção</option>
+        <option value="input" <%=transaction.type=='input' ? 'selected' : '' %>>Entrada</option>
+        <option value="output" <%=transaction.type=='output' ? 'selected' : '' %>>Saída</option>
+      </select>
+
+      <label>Categoria</label>
+      <select name="category">
+        <option value="" <%=transaction.category=='' ? 'selected' : '' %>>Escolha uma opção</option>
+
+        <% for(let i=0; i < categories.length; i++){ %>
+          <option value="<%= categories[i].id %>" <%=transaction.category==categories[i].id ? 'selected' : '' %>
+            >
+            <%= categories[i].name %>
+          </option>
+          <% } %>
+      </select>
+
+      <label>Valor (R$)</label>
+      <input name="value" type="text" maxlength="20" value="<%= transaction.value %>"
+        onKeyPress="return(mask(this,'.',',',event))">
+
+      <label>Data da transação</label>
+      <input name="date" type="date" value="<%= transaction.date %>">
+
+      <button>Editar</button>
+    </form>
+  </main>
+
+  <% if(errors.length> 0) { %>
+    <section class="errorDiv">
+      <p>Resolva os erros abaixo para enviar</p>
+      <ul>
+        <% for(let i=0; i < errors.length; i++){ %>
+          <li>
+            <%= errors[i].msg %>
+          </li>
+          <% } %>
+      </ul>
+    </section>
+    <% } %>
+
+      <script>
+        function mask(objTextBox, SeparadorMilesimo, SeparadorDecimal, e) {
+          var sep = 0;
+          var key = '';
+          var i = j = 0;
+          var len = len2 = 0;
+          var strCheck = '0123456789';
+          var aux = aux2 = '';
+          var whichCode = (window.Event) ? e.which : e.keyCode;
+          if (whichCode == 13 || whichCode == 8) return true;
+          key = String.fromCharCode(whichCode);
+          if (strCheck.indexOf(key) == -1) return false;
+          len = objTextBox.value.length;
+          for (i = 0; i < len; i++)
+            if ((objTextBox.value.charAt(i) != '0') && (objTextBox.value.charAt(i) != SeparadorDecimal)) break;
+          aux = '';
+          for (; i < len; i++)
+            if (strCheck.indexOf(objTextBox.value.charAt(i)) != -1) aux += objTextBox.value.charAt(i);
+          aux += key;
+          len = aux.length;
+          if (len == 0) objTextBox.value = '';
+          if (len == 1) objTextBox.value = '0' + SeparadorDecimal + '0' + aux;
+          if (len == 2) objTextBox.value = '0' + SeparadorDecimal + aux;
+          if (len > 2) {
+            aux2 = '';
+            for (j = 0, i = len - 3; i >= 0; i--) {
+              if (j == 3) {
+                aux2 += SeparadorMilesimo;
+                j = 0;
+              }
+              aux2 += aux.charAt(i);
+              j++;
+            }
+            objTextBox.value = '';
+            len2 = aux2.length;
+            for (i = len2 - 1; i >= 0; i--)
+              objTextBox.value += aux2.charAt(i);
+            objTextBox.value += SeparadorDecimal + aux.substr(len - 2, len);
+          }
+          return false;
+        }
+      </script>
+</body>
+
+</html>

@@ -1,7 +1,13 @@
 const { check, validationResult } = require('express-validator')
 const { home } = require('../controllers/home')
 const { historyScreen } = require('../controllers/history');
-const { addTransactionScreen, addTransactionPost } = require('../controllers/transactions');
+const {
+  addTransactionScreen,
+  addTransactionPost,
+  editTransactionScreen,
+  editTransactionPost,
+  deleteTransactionPost
+} = require('../controllers/transactions');
 const { addCategoryScreen, addCategoryPost } = require('../controllers/category');
 const { userScreen, addUser, authUser } = require('../controllers/user')
 
@@ -21,6 +27,10 @@ module.exports = {
 
   addCategoryScreen: (app) => app.get('/add-category', (req, res) => {
     addCategoryScreen(app, req, res, {}, []);
+  }),
+  
+  editTransactionScreen: (app) => app.get('/edit-transaction', (req, res) => {
+    editTransactionScreen(app, req, res, undefined, []);
   }),
 
   // POST routes
@@ -111,4 +121,30 @@ module.exports = {
       res.redirect('/');
     });
   },
+
+  // UPDATE routes
+  editTransaction: (app) => {
+    app.post('/edit-transaction/edit',
+      [
+        check('name').isLength({ min: 3, max: 100 }).withMessage('Nome deve ter pelo menos 3 caracteres'),
+        check('type').notEmpty().withMessage('Selecione um tipo'),
+        check('category').notEmpty().withMessage('Selecione uma categoria'),
+        check('value').notEmpty().withMessage('Insira o valor da transação'),
+        check('date').notEmpty().withMessage('Insira a data da transação')
+      ], (req, res) => {
+        const validation = validationResult(req);
+
+        if(validation.isEmpty()) editTransactionPost(app, req, res) 
+        else {
+          const errors = validation.array();
+          editTransactionScreen(app, req, res, {}, errors)
+        }
+      }
+    )
+  },
+
+  // DELETE routes
+  deleteTransaction: (app) => app.get('/remove', (req, res) => {
+    deleteTransactionPost(app, req, res);
+  })
 }

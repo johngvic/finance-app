@@ -14,3 +14,10 @@ routes.addTransaction(app)
 routes.addCategory(app)
 routes.saveUser(app)
 routes.authUser(app)
+
+//DELETE
+routes.deleteTransaction(app)
+
+//UPDATE
+routes.editTransactionScreen(app)
+routes.editTransaction(app)
