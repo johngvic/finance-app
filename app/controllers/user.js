@@ -1,43 +1,45 @@
-const {
-  renderUserScreen,
-  addUser,
-  authUser
-} = require('../models/user')
-const dbConnection = require('../../config/dbconnection')
+const UserModel = require('../models/User');
 
-module.exports.userScreen = (app, req, res, authUser, authErrors, addErrors, addUser) => {
-  const db = dbConnection()
+module.exports = class UserController {
+  static async userManagement(req, res, authUser, authErrors, addErrors, addUser) {
+    res.render('user', { authUser, authErrors, addErrors, addUser });
+  }
 
-  renderUserScreen(db, (err) => {
-    res.render('user', { authUser, authErrors, addErrors, addUser })
-  })
-}
+  static async addUser(req, res) {
+    try {
+      const user = req.body;
+      const newUser = await UserModel.addUser({
+        name: user.name,
+        email: user.email,
+        password: user.password
+      });
+      
+      // console.log(newUser.insertedId.valueOf())
 
-module.exports.addUser = (app, req, res) => {
-  const user = req.body
-  const db = dbConnection()
-  
-  addUser(user, db, (error, result) => {
-    res.redirect('/');
-  });
-};
+      res.redirect('/');
+    } catch (error) {
+      console.error(error);
+      res.redirect('/');
+    }
+  }
 
-module.exports.authUser = (app, req, res) => {
-  let user = req.body
-  const db = dbConnection()
+  static async authUser(req, res) {
+    const user = req.body;
+    
+    try {
+      const userAuthenticated = await UserModel.authUser({
+        email: user.email,
+        password: user.password
+      });
 
-  authUser(user, db, (error, result) => {
-    if (result.length > 0) {
-      user = result[0]
-
-      req.session.user = {
-        id: user.id,
-        name: user.name,    
-        email: user.email
+      if (!userAuthenticated) {
+        throw new Error('User not found');
       }
 
-      res.redirect('/home')
-    } else {
+      req.session.user = { ...userAuthenticated }
+      
+      res.redirect('/home');
+    } catch (error) {
       res.status(500).render('user.ejs', {
         authUser: user,
         authErrors: [{ msg: 'Falha ao autenticar' }],
@@ -45,5 +47,5 @@ module.exports.authUser = (app, req, res) => {
         addErrors: []
       })
     }
-  })
+  }
 }

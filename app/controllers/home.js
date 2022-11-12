@@ -1,55 +1,70 @@
-const { formatCurrency } = require('../utils/formatCurrency')
-const { DateTime } = require('luxon')
-const { renderHomeScreen } = require('../models/home')
-const dbConnection = require('../../config/dbconnection')
+const TransactionModel = require('../models/Transaction');
+const CategoryModel = require('../models/Category');
+const { DateTime } = require('luxon');
+const { formatCurrency } = require('../utils/formatCurrency');
+const { formatDate } = require('../utils/formatDate');
 
-module.exports.home = async (app, req, res) => {
-  if (req.session.user) {
-    const db = dbConnection()
-    const now = DateTime.now()
-    const userId = req.session.user.id
-    let salutation = ''
+module.exports = class HomeController {
+  static async homeScreen(req, res) {
+    if (req.session.user) {
+      const now = DateTime.now();
+      const { _id, name } = req.session.user;
+      const firstName = name.split(' ')[0];
+      const object = {
+        salutation: '',
+        balance: formatCurrency(0),
+        input: formatCurrency(0),
+        output: formatCurrency(0),
+        lastTransactions: []
+      }
+      const monthInfo = {
+        initialDate: `${now.year}-${now.month}-01`,
+        endDate: `${now.year}-${now.month}-${now.endOf('month').day}`
+      }
+  
+      if (now.hour < 12) {
+        object.salutation = `Bom dia, ${firstName}`;
+      } else if (now.hour < 18) {
+        object.salutation = `Boa tarde, ${firstName}`;
+      } else {
+        object.salutation = `Boa noite, ${firstName}`;
+      }
 
-    const monthInfo = {
-      initialDate: `${now.year}-${now.month}-01`,
-      endDate: `${now.year}-${now.month}-${now.endOf('month').day}`
-    }
+      const transactions = await TransactionModel.fetchTransactions(_id, monthInfo);
 
-    if (now.hour < 12) {
-      salutation = "Bom dia, "
-    } else if (now.hour < 18) {
-      salutation = "Boa tarde, "
+      if (transactions.length > 0) {
+        const lastTransactions = [];
+        let outputCount = 0;
+        let inputCount = 0;
+
+        for (let index = 0; index < transactions.length; index++) {
+          const transaction = transactions[index];
+
+          transaction.type === 'input' ?
+            inputCount += transaction.value :
+            outputCount += transaction.value
+
+          if (lastTransactions.length < 3) {
+            const category = await CategoryModel.getCategoryById(transaction.category);
+
+            lastTransactions.push({
+              name: transaction.name,
+              category: category.name,
+              value: `R$ ${formatCurrency(transaction.value)}`,
+              date: formatDate(new Date(transaction.date).toISOString())
+            });
+          }
+        }
+
+        object.balance = formatCurrency(inputCount - outputCount);
+        object.input = formatCurrency(inputCount);
+        object.output = formatCurrency(outputCount);
+        object.lastTransactions = lastTransactions;
+      }
+
+      res.render('home', { ...object });
     } else {
-      salutation = "Boa noite, "
+      res.redirect('/')
     }
-  
-    renderHomeScreen(db, userId, monthInfo, (err, result) => {
-      salutation += result[0][0].name.split(' ')[0];
-      const totalInput = result[1][0].total_input;
-      const totalOutput = result[2][0].total_output;
-      const lastTransactions = [];
-  
-      result[3].forEach((transaction) => {
-        lastTransactions.unshift({ 
-          ...transaction,
-          value: `R$ ${formatCurrency(transaction.value)}`,
-          date: new Date(transaction.date).toLocaleString('pt').split(' ')[0]
-        })
-      })
-  
-      const input = totalInput ? parseFloat(totalInput) : 0;
-      const output = totalOutput ? parseFloat(totalOutput) : 0;
-      const balance = input - output;
-  
-      res.render('home', {
-        salutation,
-        balance: formatCurrency(balance),
-        input: formatCurrency(input),
-        output: formatCurrency(output),
-        lastTransactions
-      })
-    })
-  } else {
-    res.redirect('/')
   }
 }

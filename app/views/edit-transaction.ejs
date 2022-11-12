@@ -12,7 +12,7 @@
 
 <body>
   <header>
-    <a href="/home">
+    <a href="/history">
       <img src="/assets/back.svg" alt="Home">
     </a>
     <p>FinanceApp</p>
@@ -21,7 +21,7 @@
   <main>
     <p>Editar transação</p>
 
-    <form method="post" action="/edit-transaction/edit?transactionId=<%= transaction.transactionId %>">
+    <form method="post" action="/edit-transaction/edit?transactionId=<%= transaction._id %>">
       <label>Nome</label>
       <input name="name" type="text" value="<%= transaction.name %>">
 

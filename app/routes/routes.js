@@ -1,36 +1,30 @@
 const { check, validationResult } = require('express-validator')
-const { home } = require('../controllers/home')
-const { historyScreen } = require('../controllers/history');
-const {
-  addTransactionScreen,
-  addTransactionPost,
-  editTransactionScreen,
-  editTransactionPost,
-  deleteTransactionPost
-} = require('../controllers/transactions');
-const { addCategoryScreen, addCategoryPost } = require('../controllers/category');
-const { userScreen, addUser, authUser } = require('../controllers/user')
+const HomeController = require('../controllers/Home');
+const TransactionController = require('../controllers/Transaction');
+const UserController = require('../controllers/User');
+const CategoryController = require('../controllers/Category');
+const HistoryController = require('../controllers/History');
 
 module.exports = {
   // GET routes
   home: (app) => app.get('/home', (req, res) => {
-    home(app, req, res);
+    HomeController.homeScreen(req, res);
   }),
 
   historyScreen: (app) => app.get('/history', (req, res) => {
-    historyScreen(app, req, res);
+    HistoryController.historyScreen(req, res);
   }),
 
   addTransactionScreen: (app) => app.get('/add-transaction', (req, res) => {
-    addTransactionScreen(app, req, res, {}, []);
+    TransactionController.addTransactionScreen(req, res, {}, []);
   }),
 
   addCategoryScreen: (app) => app.get('/add-category', (req, res) => {
-    addCategoryScreen(app, req, res, {}, []);
+    CategoryController.categoryScreen(req, res, {}, []);
   }),
   
   editTransactionScreen: (app) => app.get('/edit-transaction', (req, res) => {
-    editTransactionScreen(app, req, res, undefined, []);
+    TransactionController.editTransactionScreen(req, res, []);
   }),
 
   // POST routes
@@ -46,10 +40,11 @@ module.exports = {
         const validation = validationResult(req);
         const transaction = req.body;
 
-        if(validation.isEmpty()) addTransactionPost(app, req, res) 
-        else {
+        if(validation.isEmpty()) {
+          TransactionController.addTransactionPost(req, res);
+        } else {
           const errors = validation.array();
-          addTransactionScreen(app, req, res, transaction, errors)
+          TransactionController.addTransactionScreen(req, res, transaction, errors);
         }
       }
     )
@@ -63,10 +58,11 @@ module.exports = {
         const validation = validationResult(req);
         const category = req.body;
 
-        if(validation.isEmpty()) addCategoryPost(app, req, res) 
-        else {
+        if(validation.isEmpty()) {
+          CategoryController.addCategoryPost(req, res);
+        } else {
           const errors = validation.array();
-          addCategoryScreen(app, req, res, category, errors)
+          CategoryController.categoryScreen(req, res, category, errors);
         }
       }
     )
@@ -74,7 +70,7 @@ module.exports = {
 
   // USER routes
   userScreen: (app) => app.get('/', (req, res) => {
-    userScreen(app, req, res, {}, [], {}, []);
+    UserController.userManagement(req, res, {}, [], {}, []);
   }),
 
   saveUser: (app) => {
@@ -91,10 +87,11 @@ module.exports = {
         const validation = validationResult(req);
         const user = req.body;
 
-        if(validation.isEmpty()) addUser(app, req, res);
-        else {
+        if(validation.isEmpty()) {
+          UserController.addUser(req, res);
+        } else {
           const addErrors = validation.array();
-          userScreen(app, req, res, {}, [], addErrors, user)
+          UserController.userManagement(req, res, {}, [], addErrors, user);
         }
       })
   },
@@ -107,10 +104,11 @@ module.exports = {
       const validation = validationResult(req);
       const user = req.body;
 
-      if (validation.isEmpty()) authUser(app, req, res);
-      else {
+      if (validation.isEmpty()) {
+        UserController.authUser(req, res);
+      } else {
         const authErrors = validation.array();
-        userScreen(app, req, res, user, authErrors, [], {});
+        UserController.userManagement(req, res, user, authErrors, [], {});
       }
     })
   },
@@ -134,10 +132,11 @@ module.exports = {
       ], (req, res) => {
         const validation = validationResult(req);
 
-        if(validation.isEmpty()) editTransactionPost(app, req, res) 
-        else {
+        if(validation.isEmpty()) {
+          TransactionController.editTransactionPost(req, res);
+        } else {
           const errors = validation.array();
-          editTransactionScreen(app, req, res, {}, errors)
+          TransactionController.editTransactionScreen(req, res, errors);
         }
       }
     )
@@ -145,6 +144,6 @@ module.exports = {
 
   // DELETE routes
   deleteTransaction: (app) => app.get('/remove', (req, res) => {
-    deleteTransactionPost(app, req, res);
+    TransactionController.deleteTransaction(req, res);
   })
 }

@@ -49,13 +49,13 @@
               <%= transactions[i].value %>
             </td>
             <td>
-              <a href="/edit-transaction?transactionId=<%= transactions[i].id %>">
+              <a href="/edit-transaction?transactionId=<%= transactions[i]._id %>">
                 <button title="Editar">
                   <img src="/assets/edit.svg" alt="Editar">
                 </button>
               </a>
 
-              <a href="/remove?transactionId=<%= transactions[i].id %>">
+              <a href="/remove?transactionId=<%= transactions[i]._id %>">
                 <button title="Remover">
                   <img src="/assets/remove.svg" alt="Remover">
                 </button>

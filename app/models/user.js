@@ -1,19 +1,24 @@
-module.exports = {
-  renderUserScreen: (dbConnection, callback) => {
-    callback()
-  },
-  addUser: (user, dbConnection, callback) => {
-    const command =
-    `INSERT INTO tb_user (name, email, password)
-    VALUES ("${user.name}", "${user.email}", MD5("${user.password}"));`
+const mongoClient = require('../../config/mongoClient');
 
-    dbConnection.query(command, callback);
-  },
-  authUser: (user, dbConnection, callback) => {
-    const command =
-    `SELECT * FROM tb_user
-    WHERE email = "${user.email}" AND password = MD5("${user.password}");`
+module.exports = class UserModel {
+  static async addUser(user) {
+    const newUser = await mongoClient
+    .db('finance-app')
+    .collection('user')
+    .insertOne(user);
 
-    dbConnection.query(command, callback)
+    return newUser.insertedId;
+  }
+
+  static async authUser(user) {
+    const authUser = await mongoClient
+    .db('finance-app')
+    .collection('user')
+    .findOne({
+      email: user.email,
+      password: user.password
+    });
+
+    return authUser;
   }
 }

@@ -1,29 +1,31 @@
-const { formatCurrency } = require('../utils/formatCurrency')
-const { renderHistoryScreen } = require('../models/history')
-const dbConnection = require('../../config/dbconnection')
+const TransactionModel = require('../models/Transaction');
+const CategoryModel = require('../models/Category');
+const { formatCurrency } = require('../utils/formatCurrency');
+const { formatDate } = require('../utils/formatDate');
 
-module.exports.historyScreen = (app, req, res) => {
-  if (req.session.user) {
-    const db = dbConnection()
-    const userId = req.session.user.id
+module.exports = class HistoryController {
+  static async historyScreen(req, res) {
+    if (req.session.user) {
+      const { _id } = req.session.user;
+      const transactionsArray = [];
+      const transactions = await TransactionModel.fetchTransactions(_id);
 
-    renderHistoryScreen(db, userId, (err, transactions) => {
-      const transactionsArray = []
-  
-      transactions.forEach(transaction => {
-        const date = new Date(transaction.date).toLocaleString('pt').split(' ')[0]
+      for (let index = 0; index < transactions.length; index++) {
+        const transaction = transactions[index];
+        const category = await CategoryModel.getCategoryById(transaction.category);
         
         transactionsArray.push({
           ...transaction,
-          date,
+          category: category.name,
           type: transaction.type === 'output' ? 'Saída' : 'Entrada',
-          value: `R$ ${formatCurrency(parseFloat(transaction.value))}`
+          value: `R$ ${formatCurrency(parseFloat(transaction.value))}`,
+          date: formatDate(new Date(transaction.date).toISOString())
         })
-      });
-  
-      res.render('history', { transactions: transactionsArray })
-    })
-  } else {
-    res.redirect('/')
+      }
+
+      res.render('history', { transactions: transactionsArray });
+    } else {
+      res.redirect('/')
+    }
   }
 }

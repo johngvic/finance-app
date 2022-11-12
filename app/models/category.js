@@ -1,10 +1,31 @@
-module.exports = {
-  renderAddCategoryScreen: (dbConnection, callback) => {
-    callback()
-  },
+const mongoClient = require('../../config/mongoClient');
+const { ObjectId } = require('mongodb');
 
-  addCategory: (category, dbConnection, callback) => {
-    const command = `INSERT INTO tb_category (name, user) VALUES("${category.name}", ${category.user})`
-    dbConnection.query(command, callback);
+module.exports = class CategoryModel {
+  static async fetchUserCategories(user) {
+    const cursor = mongoClient
+    .db('finance-app')
+    .collection('category')
+    .find({ user });
+
+    const categories = await cursor.toArray()
+
+    return categories;
+  }
+
+  static async addCategoryPost(category) {
+    await mongoClient
+    .db('finance-app')
+    .collection('category')
+    .insertOne(category);
+  }
+
+  static async getCategoryById(category) {
+    const response = await mongoClient
+    .db('finance-app')
+    .collection('category')
+    .findOne({ _id: ObjectId(category) });
+
+    return response;
   }
 }
