@@ -1,4 +1,4 @@
-const CategoryModel = require('../models/Category');
+const CategoryModel = require('../models/category');
 
 module.exports = class CategoryController {
   static async categoryScreen(req, res, category, errors) {

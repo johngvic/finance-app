@@ -1,5 +1,5 @@
-const TransactionModel = require('../models/Transaction');
-const CategoryModel = require('../models/Category');
+const TransactionModel = require('../models/transaction');
+const CategoryModel = require('../models/category');
 const { DateTime } = require('luxon');
 const { formatCurrency } = require('../utils/formatCurrency');
 const { formatDate } = require('../utils/formatDate');

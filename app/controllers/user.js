@@ -1,4 +1,4 @@
-const UserModel = require('../models/User');
+const UserModel = require('../models/user');
 
 module.exports = class UserController {
   static async userManagement(req, res, authUser, authErrors, addErrors, addUser) {

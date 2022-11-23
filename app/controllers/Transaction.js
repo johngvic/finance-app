@@ -1,5 +1,5 @@
-const TransactionModel = require('../models/Transaction');
-const CategoryModel = require('../models/Category');
+const TransactionModel = require('../models/transaction');
+const CategoryModel = require('../models/category');
 
 module.exports = class TransactionController {
   static async addTransactionScreen(req, res, transaction, errors) {

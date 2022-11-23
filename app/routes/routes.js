@@ -1,9 +1,9 @@
 const { check, validationResult } = require('express-validator')
-const HomeController = require('../controllers/Home');
-const TransactionController = require('../controllers/Transaction');
-const UserController = require('../controllers/User');
-const CategoryController = require('../controllers/Category');
-const HistoryController = require('../controllers/History');
+const HomeController = require('../controllers/home');
+const TransactionController = require('../controllers/transaction');
+const UserController = require('../controllers/user');
+const CategoryController = require('../controllers/category');
+const HistoryController = require('../controllers/history');
 
 module.exports = {
   // GET routes
