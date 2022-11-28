@@ -13,8 +13,6 @@ module.exports = class UserController {
         email: user.email,
         password: user.password
       });
-      
-      // console.log(newUser.insertedId.valueOf())
 
       res.redirect('/');
     } catch (error) {

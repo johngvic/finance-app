@@ -38,7 +38,7 @@ main {
   height: 60vh;
   max-height: 60vh;
   overflow: scroll;
-  overflow-x: hidden;
+  overflow-x: scroll;
   overflow-y: auto;
 }
 

@@ -13,7 +13,7 @@ main {
   width: 65vw;
   height: 60vh;
   padding: 1rem;
-  margin: 5rem auto;
+  margin: 3rem auto;
   display: flex;
   justify-content: space-between;
 }
@@ -84,10 +84,31 @@ button {
 }
 
 @media (max-width: 800px) {
+  h1 {
+    margin-bottom: 2rem;
+  }
+
   main {
     flex-direction: column;
-    width: 50vh;
+    margin: 0 auto;
     height: 110vh;
-    margin: 2rem auto;
+  }
+
+  form {
+    width: 22rem;
+    justify-content: center;
+    margin: 1rem auto;
+  }
+}
+
+@media (max-width: 525px) {
+  main {
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  form {
+    width: 16rem;
+    justify-content: center;
   }
 }
